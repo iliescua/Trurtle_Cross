@@ -1,7 +1,7 @@
 from turtle import Screen
 from player import Player
 from level import Level
-from cars import Cars
+from obstacles import Obstacles
 import time
 
 WIDTH = 600
@@ -21,7 +21,7 @@ def start_game():
     is_game_on = True
     player = Player()
     level = Level()
-    cars = Cars()
+    hazards = Obstacles()
 
     screen.listen()
     screen.onkeypress(player.up, "Up")
@@ -32,18 +32,18 @@ def start_game():
         time.sleep(WAIT_TIME)
         screen.update()
 
-        cars.generate_car()
-        cars.move()
+        hazards.generate_obstacle()
+        hazards.move()
 
-        # Detect collision between car and player
-        for car in cars.total_cars:
-            if car.distance(player) < HIT_BOX:
+        # Detect collision between obstacles and player
+        for obs in hazards.total_obstacles:
+            if obs.distance(player) < HIT_BOX:
                 level.game_over()
                 is_game_on = False
 
         # Detect level increase
         if player.next_level():
-            cars.update_speed()
+            hazards.update_speed()
             level.write_level()
 
     screen.onkeypress(start_game, "space")
