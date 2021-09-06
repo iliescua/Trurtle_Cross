@@ -1,4 +1,4 @@
-from turtle import Turtle, colormode
+from turtle import Turtle, colormode, xcor
 import random as rand
 
 STRETCH_WIDTH = 1
@@ -6,7 +6,7 @@ STRETCH_HEIGHT = 2
 LEFT = 180
 RGB = 255
 Y_BORDER = 250
-X_BORDER = 300
+X_BORDER = 320
 SPEED = 5
 
 
@@ -18,7 +18,7 @@ class Obstacles:
 
     def generate_obstacle(self):
         '''Generate one obstacle and add it to the total obstacles list'''
-        if rand.randint(1, 6) == 1:
+        if rand.randint(1, 30) == 1:
             colormode(RGB)
             obs = Turtle("square")
             obs.pu()
@@ -36,9 +36,11 @@ class Obstacles:
         return (r, g, b)
 
     def move(self):
-        '''Move all the obstacles in total obstacles'''
+        '''Move all the obstacles in total obstacles and delete the ones that are off the screen'''
         for obs in self.total_obstacles:
             obs.forward(self.move_amnt)
+            if obs.xcor() < -X_BORDER:
+                self.total_obstacles.remove(obs)
 
     def update_speed(self):
         '''Update the speed of the obstacle by a constant value'''
