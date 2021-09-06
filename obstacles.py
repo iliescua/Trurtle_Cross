@@ -18,7 +18,7 @@ class Obstacles:
 
     def generate_obstacle(self):
         '''Generate one obstacle and add it to the total obstacles list'''
-        if rand.randint(1, 30) == 1:
+        if rand.randint(1, 6) == 1:
             colormode(RGB)
             obs = Turtle("square")
             obs.pu()
